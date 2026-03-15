@@ -12,10 +12,27 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ExpenseServiceImp_1 {
+public class ExpenseServiceImp_1 implements ExpenseService {
+    @Autowired
+    private AccountRepo userRepository;
     @Autowired
     private ExpenseRepo expenseRepository;
-    private AccountRepo userRepository;
+
+    private ExpenseResponseDTO mapToExpenseDTO(Expense expense){
+
+        ExpenseResponseDTO dto = new ExpenseResponseDTO();
+
+        dto.setId(expense.getId());
+        dto.setAmount(expense.getAmount());
+        dto.setDescription(expense.getDescription());
+        dto.setDate(expense.getDate());
+
+        if(expense.getCategory() != null){
+            dto.setCategory(expense.getCategory().getName());
+        }
+
+        return dto;
+    }
 
     public ExpenseResponseDTO addExpense(ExpenseRequestDTO dto, Long userId){
 
@@ -30,16 +47,33 @@ public class ExpenseServiceImp_1 {
 
         expenseRepository.save(expense);
 
-        return mapToDTO(expense);
+        return mapToExpenseDTO(expense);
     }
 
     public List<ExpenseResponseDTO> getExpensesByUser(Long userId){
         Account user = userRepository.findById(userId).orElseThrow();
+        List<Expense> ExpenseList = expenseRepository.findByUserId(user.getId());
 
-        List<Expense> response = user.getExpenses();
+        return ExpenseList.stream()
+                .map(this::mapToExpenseDTO)
+                .toList();
 
-
-        return List<user.getExpenses()>;
     }
+
+
+    public ExpenseResponseDTO getExpenseById(Long id){
+        Expense expense = expenseRepository.findById(id).orElseThrow();
+
+        return mapToExpenseDTO(expense);
+    }
+
+    public void deleteExpense(Long id){
+        Expense expense = expenseRepository.findById(id).orElseThrow();
+        //validation
+        if(expense == null){
+            expenseRepository.deleteById(id);
+        }
+    }
+
 
 }
