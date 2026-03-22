@@ -1,7 +1,16 @@
 package com.josh.tracker.service;
 
-import org.springframework.stereotype.Service;
+import com.josh.tracker.DTO.IncomeRequestDTO;
+import com.josh.tracker.DTO.IncomeResponseDTO;
 
-@Service
-public class IncomeService {
+import java.util.List;
+
+public interface IncomeService {
+    IncomeResponseDTO addIncome(IncomeRequestDTO dto, Long userId);
+
+    List<IncomeResponseDTO> getUserIncome(Long userId);
+
+    IncomeResponseDTO getIncomeById(Long id);
+
+    void deleteIncome(Long id);
 }
