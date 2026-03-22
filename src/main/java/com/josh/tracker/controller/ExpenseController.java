@@ -34,5 +34,19 @@ public class ExpenseController {
         );
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> getUserExpenseById(@PathVariable Long userId){
+
+        return ResponseEntity.ok(expenseService.getExpenseById(userId));
+    }
+
+    @DeleteMapping("/user/{userId}")
+    public ResponseEntity<?> deleteExpense(@PathVariable Long userId){
+
+        return ResponseEntity.ok(expenseService.deleteExpense(userId));
+    }
+
+
+
 
 }

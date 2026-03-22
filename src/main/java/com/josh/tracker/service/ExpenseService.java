@@ -14,5 +14,5 @@ public interface ExpenseService {
 
     ExpenseResponseDTO getExpenseById(Long id);
 
-    void deleteExpense(Long id);
+    String deleteExpense(Long id);
 }

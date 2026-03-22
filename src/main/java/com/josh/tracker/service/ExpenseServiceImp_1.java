@@ -34,6 +34,7 @@ public class ExpenseServiceImp_1 implements ExpenseService {
         return dto;
     }
 
+    @Override
     public ExpenseResponseDTO addExpense(ExpenseRequestDTO dto, Long userId){
 
         Account user = userRepository.findById(userId).orElseThrow();
@@ -50,6 +51,7 @@ public class ExpenseServiceImp_1 implements ExpenseService {
         return mapToExpenseDTO(expense);
     }
 
+    @Override
     public List<ExpenseResponseDTO> getExpensesByUser(Long userId){
         Account user = userRepository.findById(userId).orElseThrow();
         List<Expense> ExpenseList = expenseRepository.findByUserId(user.getId());
@@ -61,18 +63,19 @@ public class ExpenseServiceImp_1 implements ExpenseService {
     }
 
 
+    @Override
     public ExpenseResponseDTO getExpenseById(Long id){
         Expense expense = expenseRepository.findById(id).orElseThrow();
 
         return mapToExpenseDTO(expense);
     }
 
-    public void deleteExpense(Long id){
-        Expense expense = expenseRepository.findById(id).orElseThrow();
-        //validation
-        if(expense == null){
-            expenseRepository.deleteById(id);
-        }
+    @Override
+    public String deleteExpense(Long id){
+       expenseRepository.findById(id).orElseThrow();
+
+       return "Expense deleted successfully!";
+
     }
 
 
