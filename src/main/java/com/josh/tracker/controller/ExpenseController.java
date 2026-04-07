@@ -16,13 +16,32 @@ public class ExpenseController {
     @Autowired
     private ExpenseServiceImp_1 expenseService;
 
-    @PostMapping
+    //adding a new Expense
+    @PostMapping("/user/{userId}")
     public ResponseEntity<?> addExpense(
             @RequestBody ExpenseRequestDTO dto,
             @RequestParam Long userId) {
 
         return ResponseEntity.ok(
                 expenseService.addExpense(dto, userId)
+        );
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<?> getAllExpense(){
+        return ResponseEntity.ok(
+                expenseService.getAllExpenses()
+        );
+    }
+
+    //updating an existing Expense
+    @PutMapping("/user/{userId}")
+    public ResponseEntity<?> updateExpense(
+            @RequestBody ExpenseRequestDTO dto,
+            @RequestParam Long userId) {
+
+        return ResponseEntity.ok(
+                expenseService.updateExpense(dto, userId)
         );
     }
 

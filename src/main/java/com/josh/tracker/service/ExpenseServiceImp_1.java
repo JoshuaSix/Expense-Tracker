@@ -51,6 +51,22 @@ public class ExpenseServiceImp_1 implements ExpenseService {
         return mapToExpenseDTO(expense);
     }
 
+
+    public ExpenseResponseDTO updateExpense(ExpenseRequestDTO dto, Long userId){
+
+        Account user = userRepository.findById(userId).orElseThrow();
+
+        Expense expense = new Expense();
+        expense.setAmount(dto.getAmount());
+        expense.setDescription(dto.getDescription());
+        expense.setDate(dto.getDate());
+        expense.setAccount(user);
+
+        expenseRepository.save(expense);
+        return mapToExpenseDTO(expense);
+    }
+
+
     @Override
     public List<ExpenseResponseDTO> getExpensesByUser(Long userId){
         Account user = userRepository.findById(userId).orElseThrow();
@@ -61,7 +77,6 @@ public class ExpenseServiceImp_1 implements ExpenseService {
                 .toList();
 
     }
-
 
     @Override
     public ExpenseResponseDTO getExpenseById(Long id){
@@ -78,5 +93,11 @@ public class ExpenseServiceImp_1 implements ExpenseService {
 
     }
 
+    public List<ExpenseResponseDTO> getAllExpenses (){
+        List<Expense> ExpenseList = expenseRepository.findAll();
 
+        return ExpenseList.stream()
+                .map(this::mapToExpenseDTO)
+                .toList();
+    }
 }
