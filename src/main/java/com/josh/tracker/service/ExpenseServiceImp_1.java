@@ -100,4 +100,22 @@ public class ExpenseServiceImp_1 implements ExpenseService {
                 .map(this::mapToExpenseDTO)
                 .toList();
     }
+
+    //add total Expense function to get the total amount expense for a user.
+    public List<ExpenseResponseDTO> getTotalExpenseByUser(Long userId){
+
+        Account user = userRepository.findById(userId).orElseThrow();
+        List<Expense> expenseList = expenseRepository.findByAccount_Id(user.getId());
+
+        // Calculate total
+        double total = expenseList.stream()
+                .mapToDouble(Expense::getAmount) // make sure getAmount() exists
+                .sum();
+
+
+        return expenseList.stream()
+                .map(this::mapToExpenseDTO)
+                .toList();
+    }
+
 }

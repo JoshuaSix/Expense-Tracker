@@ -25,7 +25,7 @@ public class IncomeController {
     @PostMapping("/user/{userId}")
     public ResponseEntity<IncomeResponseDTO> addIncome(
             @RequestBody IncomeRequestDTO dto,
-            @RequestParam Long userId) {
+            @PathVariable Long userId) {
 
         return ResponseEntity.ok(
                 incomeService.addIncome(dto, userId)

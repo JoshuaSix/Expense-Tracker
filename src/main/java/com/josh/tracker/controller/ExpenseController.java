@@ -20,7 +20,7 @@ public class ExpenseController {
     @PostMapping("/user/{userId}")
     public ResponseEntity<?> addExpense(
             @RequestBody ExpenseRequestDTO dto,
-            @RequestParam Long userId) {
+            @PathVariable Long userId) {
 
         return ResponseEntity.ok(
                 expenseService.addExpense(dto, userId)
@@ -38,7 +38,7 @@ public class ExpenseController {
     @PutMapping("/user/{userId}")
     public ResponseEntity<?> updateExpense(
             @RequestBody ExpenseRequestDTO dto,
-            @RequestParam Long userId) {
+            @PathVariable Long userId) {
 
         return ResponseEntity.ok(
                 expenseService.updateExpense(dto, userId)
