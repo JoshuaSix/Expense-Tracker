@@ -70,7 +70,7 @@ public class ExpenseServiceImp_1 implements ExpenseService {
     @Override
     public List<ExpenseResponseDTO> getExpensesByUser(Long userId){
         Account user = userRepository.findById(userId).orElseThrow();
-        List<Expense> ExpenseList = expenseRepository.findByUserId(user.getId());
+        List<Expense> ExpenseList = expenseRepository.findByAccount_Id(user.getId());
 
         return ExpenseList.stream()
                 .map(this::mapToExpenseDTO)

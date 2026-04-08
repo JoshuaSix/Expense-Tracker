@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/income")
 @CrossOrigin
 public class IncomeController {
     @Autowired
@@ -22,7 +22,7 @@ public class IncomeController {
 //    }
 
     // Add income
-    @PostMapping
+    @PostMapping("/user/{userId}")
     public ResponseEntity<IncomeResponseDTO> addIncome(
             @RequestBody IncomeRequestDTO dto,
             @RequestParam Long userId) {
@@ -43,7 +43,7 @@ public class IncomeController {
     }
 
     // Get single income
-    @GetMapping("/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<IncomeResponseDTO> getIncomeById(
             @PathVariable Long id) {
 

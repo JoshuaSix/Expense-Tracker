@@ -50,7 +50,7 @@ public class IncomeServiceImp implements IncomeService {
         userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        return incomeRepository.findByUserId(userId)
+        return incomeRepository.findByAccount_Id(userId)
                 .stream()
                 .map(this::mapToDTO)
                 .toList();

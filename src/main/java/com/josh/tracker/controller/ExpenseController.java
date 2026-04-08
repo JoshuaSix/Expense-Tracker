@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/expense")
 @CrossOrigin
 public class ExpenseController {
 
@@ -53,10 +53,10 @@ public class ExpenseController {
         );
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getUserExpenseById(@PathVariable Long userId){
+    @GetMapping("/user/{id}")
+    public ResponseEntity<?> getUserExpenseById(@PathVariable Long id){
 
-        return ResponseEntity.ok(expenseService.getExpenseById(userId));
+        return ResponseEntity.ok(expenseService.getExpenseById(id));
     }
 
     @DeleteMapping("/user/{userId}")

@@ -8,5 +8,9 @@ import java.util.List;
 
 @Repository
 public interface ExpenseRepo extends JpaRepository<Expense, Long > {
-    List<Expense> findByUserId(Long userId);
+    // List<Expense> findByUserId(Long userId);
+    //this looks for a field inside Expense with name userId
+
+    //UserI_Id looks into Account account in Expense and finds Id
+    List<Expense> findByAccount_Id(Long userId);
 }
